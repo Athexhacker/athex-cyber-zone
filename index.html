@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATHEX CYBER ZONE - Advanced Cybersecurity Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <style>
+        /* CSS Styles */
+        :root {
+            --primary: #00ff9d;
+            --secondary: #08b402;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #e0e0ff;
+            --danger: #ff3860;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--darker);
+            border: none;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 157, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--darker);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        #canvas3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.1);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.1);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+
+        .product-image {
+            height: 200px;
+            background: var(--darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--danger);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .product-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .product-price span {
+            font-size: 1rem;
+            color: var(--light);
+            opacity: 0.7;
+        }
+
+        .product-rating {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, rgba(0, 119, 255, 0.1), rgba(0, 255, 157, 0.1));
+            padding: 80px 0;
+            border-radius: 15px;
+            margin: 50px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            position: relative;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--light);
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 60px 0 20px;
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--darker);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+
+            nav ul li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                ATHEX<span>CYBER ZONE</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div id="canvas3d"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Advanced Cybersecurity Solutions for the Digital Age</h1>
+                <p>Protect your business from evolving cyber threats with our cutting-edge security software and services. Stay one step ahead of hackers with real-time monitoring and AI-powered defense systems.</p>
+                <div class="hero-btns">
+                    <a href="#products" class="btn">Explore Products</a>
+                    <a href="#contact" class="btn btn-outline">Get a Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Security Features</h2>
+                <p>Comprehensive protection for all your digital assets</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card floating">
+                    <div class="feature-icon">🔒</div>
+                    <h3>End-to-End Encryption</h3>
+                    <p>Military-grade encryption for all your data transfers and storage, ensuring complete privacy and security.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 0.5s;">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Real-Time Threat Detection</h3>
+                    <p>AI-powered monitoring that identifies and neutralizes threats before they can cause harm to your systems.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 1s;">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Network Protection</h3>
+                    <p>Comprehensive firewall and intrusion prevention systems to safeguard your entire network infrastructure.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 1.5s;">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Security Assistant</h3>
+                    <p>24/7 virtual security assistant that learns your patterns and provides personalized protection.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 2s;">
+                    <div class="feature-icon">📊</div>
+                    <h3>Compliance Management</h3>
+                    <p>Automated tools to ensure your systems meet all industry regulations and compliance standards.</p>
+                </div>
+                <div class="feature-card floating" style="animation-delay: 2.5s;">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Incident Response</h3>
+                    <p>Rapid response team and automated systems to minimize damage during security breaches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Security Products</h2>
+                <p>Choose the perfect security solution for your needs</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">30% off</div>
+                        <div class="product-3d-icon" id="product1-3d"></div>
+                    </div>
+                    <div class="product-content">
+                        <h3>Cypher Rat 3.5</h3>
+                        <p>Remote Access trojans for android</p>.</p>
+                        <div class="product-rating">★★★★★ (4.9/5)</div>
+                        <div class="product-price">$100 <span>/life time</span></div>
+                        <button class="btn" style="width: 100%;">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-3d-icon" id="product2-3d"></div>
+                    </div>
+                    <div class="product-content">
+                        <h3>Crax Rat v7.4 + (source code)</h3>
+                        <p>Advanced android hacking tool.</p>
+                        <div class="product-rating">★★★★☆ (4.7/5)</div>
+                        <div class="product-price">$150 <span>/life time</span></div>
+                        <button class="btn" style="width: 100%;">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">30% off</div>
+                        <div class="product-3d-icon" id="product3-3d"></div>
+                    </div>
+                    <div class="product-content">
+                        <h3>3 Ozone Rat</h3>
+                        <p>Advance window remote access tool.</p>
+                        <div class="product-rating">★★★★★ (4.8/5)</div>
+                        <div class="product-price">$199 <span>/life time</span></div>
+                        <button class="btn" style="width: 100%;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="container">
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="100">0</h3>
+                        <p>Countries Protected</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="5000">0</h3>
+                        <p>Enterprise Clients</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="99.9">0</h3>
+                        <p>Uptime Percentage</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="24">0</h3>
+                        <p>Hour Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Clients Say</h2>
+                <p>Trusted by leading organizations worldwide</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        ATHEX CYBER ZONE solutions transformed our security posture. We've had zero breaches since implementation, and their support team is exceptional.
+                    </div>
+                    <div class="testimonial-author">ATHEX</div>
+                    <div class="testimonial-role">cyber security researcher.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        The AI threat detection has saved us countless hours of manual monitoring. False positives are minimal and the system learns quickly.
+                    </div>
+                    <div class="testimonial-author">INZI</div>
+                    <div class="testimonial-role">WEB DEVELOPER</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                      PROFFESTIONAL WEB DEVELOPER .
+                    </div>
+                    <div class="testimonial-author"></div>
+                    <div class="testimonial-role"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Contact us for a free security consultation</p>
+            </div>
+            <div class="contact-form">
+                <form id="securityForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service" class="form-control">
+                            <option value="">Select a service</option>
+                            <option value="pro">athex cyber zone</option>
+                            <option value="mobile">Mobile Defender</option>
+                            <option value="cloud">Cloud Sentinel</option>
+                            <option value="enterprise">Enterprise Solutions</option>
+                            <option value="custom">Custom Solution</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Security Needs</label>
+                        <textarea id="message" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Request Consultation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">ATHEX CYBER ZONE</div>
+                    <p>Advanced cybersecurity solutions to protect your digital assets from evolving threats.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">Cypher Rat 3.5</a></li>
+                        <li><a href="#">Crax Rat 7.4</a></li>
+                        <li><a href="#">3 Ozone Rat</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Security Blog</a></li>
+                        <li><a href="#">Threat Reports</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Athex Cyber Zone Technologies. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Three.js 3D Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Three.js is loaded
+            if (typeof THREE !== 'undefined') {
+                // Scene setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                document.getElementById('canvas3d').appendChild(renderer.domElement);
+
+                // Particles
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particleCount = 1000;
+                
+                const posArray = new Float32Array(particleCount * 3);
+                const colorArray = new Float32Array(particleCount * 3);
+                
+                for(let i = 0; i < particleCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 10;
+                    colorArray[i] = Math.random();
+                }
+                
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+                
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.02,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending
+                });
+                
+                const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particlesMesh);
+
+                // Add floating 3D objects
+                const geometry = new THREE.IcosahedronGeometry(0.5, 0);
+                const material = new THREE.MeshPhongMaterial({ 
+                    color: 0x00ff9d,
+                    emissive: 0x0077ff,
+                    emissiveIntensity: 0.5,
+                    shininess: 100,
+                    wireframe: false,
+                    transparent: true,
+                    opacity: 0.7
+                });
+
+                const objects = [];
+                for (let i = 0; i < 5; i++) {
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.x = (Math.random() - 0.5) * 10;
+                    mesh.position.y = (Math.random() - 0.5) * 10;
+                    mesh.position.z = (Math.random() - 0.5) * 10;
+                    mesh.userData = {
+                        speedX: Math.random() * 0.01 - 0.005,
+                        speedY: Math.random() * 0.01 - 0.005,
+                        speedZ: Math.random() * 0.01 - 0.005,
+                        rotationX: Math.random() * 0.01 - 0.005,
+                        rotationY: Math.random() * 0.01 - 0.005,
+                        rotationZ: Math.random() * 0.01 - 0.005
+                    };
+                    scene.add(mesh);
+                    objects.push(mesh);
+                }
+
+                // Add lights
+                const ambientLight = new THREE.AmbientLight(0x404040);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+                directionalLight.position.set(1, 1, 1);
+                scene.add(directionalLight);
+
+                const pointLight = new THREE.PointLight(0x0077ff, 1, 100);
+                pointLight.position.set(5, 5, 5);
+                scene.add(pointLight);
+
+                camera.position.z = 5;
+
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    // Animate particles
+                    particlesMesh.rotation.x += 0.0005;
+                    particlesMesh.rotation.y += 0.0005;
+
+                    // Animate objects
+                    objects.forEach(obj => {
+                        obj.position.x += obj.userData.speedX;
+                        obj.position.y += obj.userData.speedY;
+                        obj.position.z += obj.userData.speedZ;
+                        
+                        // Bounce off boundaries
+                        if (Math.abs(obj.position.x) > 5) obj.userData.speedX *= -1;
+                        if (Math.abs(obj.position.y) > 5) obj.userData.speedY *= -1;
+                        if (Math.abs(obj.position.z) > 5) obj.userData.speedZ *= -1;
+                        
+                        obj.rotation.x += obj.userData.rotationX;
+                        obj.rotation.y += obj.userData.rotationY;
+                        obj.rotation.z += obj.userData.rotationZ;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            }
+
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCounter, 1);
+                } else {
+                    counter.innerText = target;
+                }
+
+                function updateCounter() {
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCounter, 1);
+                    } else {
+                        counter.innerText = target;
+                        if (target % 1 !== 0) {
+                            counter.innerText = target.toFixed(1);
+                        }
+                    }
+                }
+            });
+
+            // Testimonial slider
+            let currentTestimonial = 0;
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            
+            function showTestimonial(index) {
+                testimonials.forEach((testimonial, i) => {
+                    testimonial.style.display = i === index ? 'block' : 'none';
+                });
+            }
+            
+            function nextTestimonial() {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                showTestimonial(currentTestimonial);
+            }
+            
+            // Show first testimonial initially
+            showTestimonial(0);
+            
+            // Auto-rotate testimonials every 5 seconds
+            setInterval(nextTestimonial, 5000);
+
+            // Form submission
+            document.getElementById('securityForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your inquiry! Our security team will contact you shortly.');
+                this.reset();
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Product 3D hover effects
+            const productIcons = ['product1-3d', 'product2-3d', 'product3-3d'];
+            
+            productIcons.forEach(id => {
+                const icon = document.getElementById(id);
+                if (icon) {
+                    icon.style.fontSize = '5rem';
+                    icon.style.transition = 'all 0.3s ease';
+                    
+                    icon.addEventListener('mouseenter', () => {
+                        icon.style.transform = 'scale(1.2) rotate(20deg)';
+                        icon.style.textShadow = '0 0 20px rgba(0, 255, 157, 0.7)';
+                    });
+                    
+                    icon.addEventListener('mouseleave', () => {
+                        icon.style.transform = 'scale(1) rotate(0)';
+                        icon.style.textShadow = 'none';
+                    });
+                }
+            });
+
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.feature-card, .product-card, .section-title');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Set initial state for animation
+            document.querySelectorAll('.feature-card, .product-card').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.6s ease';
+            });
+
+            document.querySelectorAll('.section-title').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(-20px)';
+                element.style.transition = 'all 0.6s ease';
+            });
+
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+
+        // Load Font Awesome for icons if not already loaded
+        if (!document.querySelector('link[href*="font-awesome"]')) {
+            const faLink = document.createElement('link');
+            faLink.rel = 'stylesheet';
+            faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+            document.head.appendChild(faLink);
+        }
+    </script>
+</body>
+</html>
